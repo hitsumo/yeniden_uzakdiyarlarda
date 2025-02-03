@@ -1,6 +1,21 @@
 from evennia import DefaultRoom
 from evennia.utils import delay
 
+
+class OpeningRoom(DefaultRoom):
+    """
+    Oyunun açılış odası.
+    """
+    def at_object_receive(self, obj, source_location):
+        """
+        Oyuncu odaya girdiğinde tetiklenir.
+        """
+        if obj.has_account:  # Oyuncuysa
+            self.msg_contents("|cMerhaba!|n Yeniden Uzak Diyarlarda oyununa hoş geldiniz.")
+            delay(2, self.msg_contents, "Bu oyun yazı tabanlı olup Evennia sistemi kullanılarak oluşturulmuştur.")
+            delay(4, self.msg_contents, "|gHazırım|n yazarak oyuna başlayabilirsin.")
+
+
 class WelcomeRoom(DefaultRoom):
     """
     Oyuncunun oyuna başladığı karşılama odası.
